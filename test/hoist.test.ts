@@ -5,7 +5,7 @@ import { hoistMethods } from 'index.js'
 
 test('hoistMethods: moves methods to top level', (t) => {
   const store = hoistMethods<StoreApi<State & Methods>>(
-    createStore((set) => ({
+    createStore((set, get) => ({
       paw: true,
       snout: true,
       fur: true,
@@ -14,6 +14,10 @@ test('hoistMethods: moves methods to top level', (t) => {
       },
       unshaveDog() {
         set({ fur: true })
+      },
+      boopSnoot(snout: boolean) {
+        set({ snout })
+        return get().snout
       }
     }))
   )
@@ -34,7 +38,7 @@ test('hoistMethods: moves methods to top level', (t) => {
 
 test('hoistMethods: handles multiple state updates', (t) => {
   const store = hoistMethods<StoreApi<State & Methods>>(
-    createStore((set) => ({
+    createStore((set, get) => ({
       paw: true,
       snout: true,
       fur: true,
@@ -43,6 +47,10 @@ test('hoistMethods: handles multiple state updates', (t) => {
       },
       unshaveDog() {
         set({ fur: true })
+      },
+      boopSnoot(snout: boolean) {
+        set({ snout })
+        return get().snout
       }
     }))
   )
@@ -67,6 +75,33 @@ test('hoistMethods: handles multiple state updates', (t) => {
   t.true(store.getState().fur, 'has updated state after mutiple calls')
 })
 
+test('hoistMethods: handles method with arg', (t) => {
+  const store = hoistMethods<StoreApi<State & Methods>>(
+    createStore((set, get) => ({
+      paw: true,
+      snout: true,
+      fur: true,
+      shaveDog() {
+        set({ fur: false })
+      },
+      unshaveDog() {
+        set({ fur: true })
+      },
+      boopSnoot(snout: boolean) {
+        set({ snout })
+        return get().snout
+      }
+    }))
+  )
+
+  t.true(store.getState().snout, 'has initial state')
+  t.false(store.boopSnoot(false), 'returns new state on update')
+  t.false(store.getState().snout, 'has updated state')
+  t.true(store.boopSnoot(true), 'returns new state on second update')
+  t.true(store.boopSnoot(true), 'returns new state on third update')
+  t.true(store.getState().snout, 'has final updated state')
+})
+
 interface State {
   paw: boolean
   snout: boolean
@@ -76,4 +111,5 @@ interface State {
 interface Methods {
   shaveDog: () => void
   unshaveDog: () => void
+  boopSnoot: (sount: boolean) => boolean
 }
