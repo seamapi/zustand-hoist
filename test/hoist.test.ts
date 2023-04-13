@@ -26,7 +26,7 @@ test('hoistMethods: moves methods to top level', (t) => {
   )
 
   store.shaveDog()
-  t.false(store.getState().fur)
+  t.false(store.getState().fur, 'has updated state')
 })
 
 interface State {
