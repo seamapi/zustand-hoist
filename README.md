@@ -10,10 +10,20 @@ Hoist Zustand state methods to the top level.
 Call any state methods directly from the store.
 
 ```ts
-import { createStore } from 'zustand/vanilla'
+import { createStore, type StoreApi } from 'zustand/vanilla'
 import { hoistMethods } from 'zustand-hoist'
 
-const store = hoistMethods(
+interface State {
+  paw: boolean
+  snout: boolean
+  fur: boolean
+}
+
+interface Methods {
+  shaveDog: () => void
+}
+
+const store = hoistMethods<StoreApi<State & Methods>>(
   createStore((set) => ({
     paw: true,
     snout: true,

@@ -1,5 +1,5 @@
 import type { Builder, Command, Describe, Handler } from 'landlubber'
-import { createStore } from 'zustand/vanilla'
+import { createStore, type StoreApi } from 'zustand/vanilla'
 
 import { hoistMethods } from 'index.js'
 
@@ -19,7 +19,7 @@ export const builder: Builder = {
 }
 
 export const handler: Handler<Options> = async ({ name, logger }) => {
-  const store = hoistMethods(
+  const store = hoistMethods<StoreApi<State & Methods>>(
     createStore((set) => ({
       name: '',
       setName() {
@@ -29,4 +29,12 @@ export const handler: Handler<Options> = async ({ name, logger }) => {
   )
   store.setName(name)
   logger.info({ state: store.getState() }, 'Hoisted')
+}
+
+interface State {
+  name: string
+}
+
+interface Methods {
+  setName: (name: string) => void
 }

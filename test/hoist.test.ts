@@ -1,10 +1,10 @@
 import test from 'ava'
-import { createStore } from 'zustand/vanilla'
+import { createStore, type StoreApi } from 'zustand/vanilla'
 
 import { hoistMethods } from 'index.js'
 
 test('hoistMethods: moves methods to top level', (t) => {
-  const store = hoistMethods(
+  const store = hoistMethods<StoreApi<State & Methods>>(
     createStore((set) => ({
       paw: true,
       snout: true,
@@ -28,3 +28,13 @@ test('hoistMethods: moves methods to top level', (t) => {
   store.shaveDog()
   t.false(store.getState().fur)
 })
+
+interface State {
+  paw: boolean
+  snout: boolean
+  fur: boolean
+}
+
+interface Methods {
+  shaveDog: () => void
+}
