@@ -55,6 +55,9 @@
     "node": ">=16.13.0",
     "npm": ">= 8.1.0"
   },
+  "peerDependencies": {
+    "zustand": ">=4.0.0"
+  },
   "devDependencies": {
     "@types/node": "^18.11.18",
     "ava": "^5.0.1",
@@ -70,6 +73,7 @@
     "prettier": "^2.3.0",
     "tsc-alias": "^1.8.2",
     "tsx": "^3.12.1",
-    "typescript": "^5.0.2"
+    "typescript": "^5.0.2",
+    "zustand": "^4.3.7"
   }
 }
