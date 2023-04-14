@@ -22,3 +22,5 @@ export const hoistMethods = <T extends StoreApi<any> = StoreApi<any>>(
 
   return newStore as T & MethodsOnly<ReturnType<T['getState']>>
 }
+
+export type HoistedMethodStoreApi<T, K> = StoreApi<T & K> & K
