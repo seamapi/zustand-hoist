@@ -17,13 +17,10 @@ interface State {
   paw: boolean
   snout: boolean
   fur: boolean
-}
-
-interface Methods {
   shaveDog: () => void
 }
 
-const store = hoistMethods<StoreApi<State & Methods>>(
+const store = hoistMethods<StoreApi<State>>(
   createStore((set) => ({
     paw: true,
     snout: true,

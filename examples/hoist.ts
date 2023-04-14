@@ -19,7 +19,7 @@ export const builder: Builder = {
 }
 
 export const handler: Handler<Options> = async ({ name, logger }) => {
-  const store = hoistMethods<StoreApi<State & Methods>>(
+  const store = hoistMethods<StoreApi<State>>(
     createStore((set) => ({
       name: '',
       setName() {
@@ -33,8 +33,5 @@ export const handler: Handler<Options> = async ({ name, logger }) => {
 
 interface State {
   name: string
-}
-
-interface Methods {
   setName: (name: string) => void
 }

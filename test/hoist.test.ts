@@ -4,7 +4,7 @@ import { createStore, type StoreApi } from 'zustand/vanilla'
 import { hoistMethods } from 'index.js'
 
 test('hoistMethods: moves methods to top level', (t) => {
-  const store = hoistMethods<StoreApi<State & Methods>>(
+  const store = hoistMethods<StoreApi<State>>(
     createStore((set, get) => ({
       paw: true,
       snout: true,
@@ -37,7 +37,7 @@ test('hoistMethods: moves methods to top level', (t) => {
 })
 
 test('hoistMethods: handles multiple state updates', (t) => {
-  const store = hoistMethods<StoreApi<State & Methods>>(
+  const store = hoistMethods<StoreApi<State>>(
     createStore((set, get) => ({
       paw: true,
       snout: true,
@@ -76,7 +76,7 @@ test('hoistMethods: handles multiple state updates', (t) => {
 })
 
 test('hoistMethods: handles method with arg', (t) => {
-  const store = hoistMethods<StoreApi<State & Methods>>(
+  const store = hoistMethods<StoreApi<State>>(
     createStore((set, get) => ({
       paw: true,
       snout: true,
@@ -106,9 +106,6 @@ interface State {
   paw: boolean
   snout: boolean
   fur: boolean
-}
-
-interface Methods {
   shaveDog: () => void
   unshaveDog: () => void
   boopSnoot: (sount: boolean) => boolean
