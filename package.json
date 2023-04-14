@@ -1,6 +1,6 @@
 {
   "name": "zustand-hoist",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Hoist Zustand state methods to the top level.",
   "type": "module",
   "main": "index.js",
