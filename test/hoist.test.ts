@@ -1,10 +1,10 @@
 import test from 'ava'
 import { createStore, type StoreApi } from 'zustand/vanilla'
 
-import { hoistMethods } from 'index.js'
+import { hoistActions } from 'index.js'
 
-test('hoistMethods: moves methods to top level', (t) => {
-  const store = hoistMethods<StoreApi<State>>(
+test('hoistActions: moves actions to top level', (t) => {
+  const store = hoistActions<StoreApi<State>>(
     createStore((set, get) => ({
       paw: true,
       snout: true,
@@ -36,8 +36,8 @@ test('hoistMethods: moves methods to top level', (t) => {
   t.false(store.getState().fur, 'has updated state')
 })
 
-test('hoistMethods: handles multiple state updates', (t) => {
-  const store = hoistMethods<StoreApi<State>>(
+test('hoistActions: handles multiple state updates', (t) => {
+  const store = hoistActions<StoreApi<State>>(
     createStore((set, get) => ({
       paw: true,
       snout: true,
@@ -75,8 +75,8 @@ test('hoistMethods: handles multiple state updates', (t) => {
   t.true(store.getState().fur, 'has updated state after mutiple calls')
 })
 
-test('hoistMethods: handles method with arg', (t) => {
-  const store = hoistMethods<StoreApi<State>>(
+test('hoistActions: handles action with arg', (t) => {
+  const store = hoistActions<StoreApi<State>>(
     createStore((set, get) => ({
       paw: true,
       snout: true,

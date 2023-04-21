@@ -3,15 +3,15 @@
 [![npm](https://img.shields.io/npm/v/zustand-hoist.svg)](https://www.npmjs.com/package/zustand-hoist)
 [![GitHub Actions](https://github.com/seamapi/zustand-hoist/actions/workflows/check.yml/badge.svg)](https://github.com/seamapi/zustand-hoist/actions/workflows/check.yml)
 
-Hoist Zustand state methods to the top level.
+Hoist Zustand state actions to the top level.
 
 ## Description
 
-Call any state methods directly from the store.
+Call any actions directly from the store.
 
 ```ts
 import { createStore, type StoreApi } from 'zustand/vanilla'
-import { hoistMethods } from 'zustand-hoist'
+import { hoistActions } from 'zustand-hoist'
 
 interface State {
   paw: boolean
@@ -20,7 +20,7 @@ interface State {
   shaveDog: () => void
 }
 
-const store = hoistMethods<StoreApi<State>>(
+const store = hoistActions<StoreApi<State>>(
   createStore((set) => ({
     paw: true,
     snout: true,

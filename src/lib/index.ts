@@ -1,2 +1,2 @@
 export * from './hoist.js'
-export { hoistMethods as default } from './hoist.js'
+export { hoistActions as default } from './hoist.js'

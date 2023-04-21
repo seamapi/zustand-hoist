@@ -1,13 +1,13 @@
 import type { StoreApi } from 'zustand/vanilla'
 
-type MethodsOnly<T> = {
+type ActionsOnly<T> = {
   // eslint-disable-next-line @typescript-eslint/ban-types
   [K in keyof T]: T[K] extends Function ? T[K] : never
 }
 
-export const hoistMethods = <T extends StoreApi<any> = StoreApi<any>>(
+export const hoistActions = <T extends StoreApi<any> = StoreApi<any>>(
   store: T
-): T & MethodsOnly<ReturnType<T['getState']>> => {
+): T & ActionsOnly<ReturnType<T['getState']>> => {
   const state = store.getState()
   const keys = Object.keys(state)
 
@@ -20,7 +20,7 @@ export const hoistMethods = <T extends StoreApi<any> = StoreApi<any>>(
     }
   }, store)
 
-  return newStore as T & MethodsOnly<ReturnType<T['getState']>>
+  return newStore as T & ActionsOnly<ReturnType<T['getState']>>
 }
 
-export type HoistedMethodStoreApi<T> = StoreApi<T> & MethodsOnly<T>
+export type HoistedActionStoreApi<T> = StoreApi<T> & ActionsOnly<T>
