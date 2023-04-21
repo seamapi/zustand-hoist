@@ -1,4 +1,4 @@
-import { type StoreApi } from 'zustand/vanilla'
+import type { StoreApi } from 'zustand/vanilla'
 
 export const hoistState = <T extends StoreApi<any> = StoreApi<any>>(
   store: T
