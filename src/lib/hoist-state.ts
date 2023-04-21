@@ -4,20 +4,19 @@ export const hoistState = <T extends StoreApi<any> = StoreApi<any>>(
   store: T
 ): T & StateOnly<ReturnType<T['getState']>> => {
   const state = store.getState()
-  const keys = Object.keys(state)
 
-  const newStore = keys.reduce((prevStore, key) => {
-    const value = state[key]
-    if (typeof value === 'function') return prevStore
-    return {
-      ...prevStore,
-      get [key]() {
-        return store.getState()[key]
-      }
+  for (const prop in state) {
+    const value = state[prop]
+    if (typeof value !== 'function') {
+      Object.defineProperty(store, prop, {
+        get: function () {
+          return this.getState()[prop]
+        }
+      })
     }
-  }, store)
+  }
 
-  return newStore as T & StateOnly<ReturnType<T['getState']>>
+  return store as T & StateOnly<ReturnType<T['getState']>>
 }
 
 export type HoistedStateStoreApi<T> = StoreApi<T> & StateOnly<T>
