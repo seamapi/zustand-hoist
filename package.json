@@ -1,7 +1,7 @@
 {
   "name": "zustand-hoist",
   "version": "0.4.1",
-  "description": "Hoist Zustand state methods to the top level.",
+  "description": "Hoist Zustand state actions to the top level.",
   "type": "module",
   "main": "index.js",
   "typings": "index.d.ts",
