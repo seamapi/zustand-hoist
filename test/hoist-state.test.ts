@@ -1,10 +1,10 @@
 import test from 'ava'
 import { createStore, type StoreApi } from 'zustand/vanilla'
 
-import { hoist } from 'index.js'
+import { hoistState } from 'index.js'
 
-test('hoist: moves state and actions to top level', (t) => {
-  const store = hoist<StoreApi<State>>(
+test('hoistState: moves actions to top level', (t) => {
+  const store = hoistState<StoreApi<State>>(
     createStore((set, get) => ({
       paw: true,
       snout: true,
@@ -32,12 +32,12 @@ test('hoist: moves state and actions to top level', (t) => {
     'has initial state'
   )
 
-  store.shaveDog()
+  store.getState().shaveDog()
   t.false(store.fur, 'has updated state')
 })
 
-test('hoist: handles multiple state updates', (t) => {
-  const store = hoist<StoreApi<State>>(
+test('hoistState: handles multiple state updates', (t) => {
+  const store = hoistState<StoreApi<State>>(
     createStore((set, get) => ({
       paw: true,
       snout: true,
@@ -56,27 +56,27 @@ test('hoist: handles multiple state updates', (t) => {
   )
 
   t.true(store.fur, 'has initial state')
-  store.shaveDog()
+  store.getState().shaveDog()
   t.false(store.fur, 'has updated state')
-  store.unshaveDog()
+  store.getState().unshaveDog()
   t.true(store.fur, 'has next updated state')
-  store.shaveDog()
-  store.shaveDog()
+  store.getState().shaveDog()
+  store.getState().shaveDog()
   t.false(store.fur, 'has updated state two calls')
-  store.unshaveDog()
-  store.shaveDog()
-  store.shaveDog()
-  store.shaveDog()
-  store.unshaveDog()
-  store.shaveDog()
-  store.shaveDog()
-  store.unshaveDog()
-  store.unshaveDog()
+  store.getState().unshaveDog()
+  store.getState().shaveDog()
+  store.getState().shaveDog()
+  store.getState().shaveDog()
+  store.getState().unshaveDog()
+  store.getState().shaveDog()
+  store.getState().shaveDog()
+  store.getState().unshaveDog()
+  store.getState().unshaveDog()
   t.true(store.fur, 'has updated state after mutiple calls')
 })
 
-test('hoist: handles action with arg', (t) => {
-  const store = hoist<StoreApi<State>>(
+test('hoistState: handles action with arg', (t) => {
+  const store = hoistState<StoreApi<State>>(
     createStore((set, get) => ({
       paw: true,
       snout: true,
@@ -95,10 +95,10 @@ test('hoist: handles action with arg', (t) => {
   )
 
   t.true(store.snout, 'has initial state')
-  t.false(store.boopSnoot(false), 'returns new state on update')
+  t.false(store.getState().boopSnoot(false), 'returns new state on update')
   t.false(store.snout, 'has updated state')
-  t.true(store.boopSnoot(true), 'returns new state on second update')
-  t.true(store.boopSnoot(true), 'returns new state on third update')
+  t.true(store.getState().boopSnoot(true), 'returns new state on second update')
+  t.true(store.getState().boopSnoot(true), 'returns new state on third update')
   t.true(store.snout, 'has final updated state')
 })
 

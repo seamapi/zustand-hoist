@@ -3,11 +3,73 @@
 [![npm](https://img.shields.io/npm/v/zustand-hoist.svg)](https://www.npmjs.com/package/zustand-hoist)
 [![GitHub Actions](https://github.com/seamapi/zustand-hoist/actions/workflows/check.yml/badge.svg)](https://github.com/seamapi/zustand-hoist/actions/workflows/check.yml)
 
-Hoist Zustand state actions to the top level.
+Hoist Zustand state and actions to the top level.
 
 ## Description
 
-Call any actions directly from the store.
+### hoist
+
+Read state and call actions directly from the store.
+
+```ts
+import { createStore, type StoreApi } from 'zustand/vanilla'
+import { hoist } from 'zustand-hoist'
+
+interface State {
+  paw: boolean
+  snout: boolean
+  fur: boolean
+  shaveDog: () => void
+}
+
+const store = hoist<StoreApi<State>>(
+  createStore((set) => ({
+    paw: true,
+    snout: true,
+    fur: true,
+    shaveDog() {
+      set({ fur: false })
+    }
+  }))
+)
+
+store.shaveDog()
+store.fur //=> false
+```
+
+### hoistState
+
+Read state directly from the store.
+
+```ts
+import { createStore, type StoreApi } from 'zustand/vanilla'
+import { hoistActions } from 'zustand-hoist'
+
+interface State {
+  paw: boolean
+  snout: boolean
+  fur: boolean
+  shaveDog: () => void
+}
+
+const store = hoistState<StoreApi<State>>(
+  createStore((set) => ({
+    paw: true,
+    snout: true,
+    fur: true,
+    shaveDog() {
+      set({ fur: false })
+    }
+  }))
+)
+
+store.getState().shaveDog()
+store.fur //=> false
+```
+
+### hoistActions
+
+Call actions directly from the store.
 
 ```ts
 import { createStore, type StoreApi } from 'zustand/vanilla'
