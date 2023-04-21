@@ -11,7 +11,8 @@ export const hoistActions = <T extends StoreApi<any> = StoreApi<any>>(
     if (typeof value !== 'function') return prevStore
     return {
       ...prevStore,
-      [key]: (...args: Parameters<typeof value>) => value(...args)
+      [key]: (...args: Parameters<typeof value>) =>
+        store.getState()[key](...args)
     }
   }, store)
 
