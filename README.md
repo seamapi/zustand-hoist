@@ -7,7 +7,39 @@ Hoist Zustand state actions to the top level.
 
 ## Description
 
-Call any actions directly from the store.
+### hoistState
+
+Read state directly from the store.
+
+```ts
+import { createStore, type StoreApi } from 'zustand/vanilla'
+import { hoistActions } from 'zustand-hoist'
+
+interface State {
+  paw: boolean
+  snout: boolean
+  fur: boolean
+  shaveDog: () => void
+}
+
+const store = hoistState<StoreApi<State>>(
+  createStore((set) => ({
+    paw: true,
+    snout: true,
+    fur: true,
+    shaveDog() {
+      set({ fur: false })
+    }
+  }))
+)
+
+store.getState().shaveDog()
+store.fur //=> false
+```
+
+### hoistActions
+
+Call actions directly from the store.
 
 ```ts
 import { createStore, type StoreApi } from 'zustand/vanilla'
