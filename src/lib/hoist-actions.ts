@@ -1,7 +1,7 @@
 import type { StoreApi } from 'zustand/vanilla'
 
 export const hoistActions = <T extends StoreApi<any> = StoreApi<any>>(
-  store: T
+  store: T,
 ): T & ActionsOnly<ReturnType<T['getState']>> => {
   const state = store.getState()
 
@@ -11,7 +11,7 @@ export const hoistActions = <T extends StoreApi<any> = StoreApi<any>>(
       Object.defineProperty(store, prop, {
         value: function (...args: Parameters<typeof value>) {
           return this.getState()[prop](...args)
-        }
+        },
       })
     }
   }

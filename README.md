@@ -29,8 +29,8 @@ const store = hoist<StoreApi<State>>(
     fur: true,
     shaveDog() {
       set({ fur: false })
-    }
-  }))
+    },
+  })),
 )
 
 store.shaveDog()
@@ -59,8 +59,8 @@ const store = hoistState<StoreApi<State>>(
     fur: true,
     shaveDog() {
       set({ fur: false })
-    }
-  }))
+    },
+  })),
 )
 
 store.getState().shaveDog()
@@ -89,8 +89,8 @@ const store = hoistActions<StoreApi<State>>(
     fur: true,
     shaveDog() {
       set({ fur: false })
-    }
-  }))
+    },
+  })),
 )
 
 store.shaveDog()
