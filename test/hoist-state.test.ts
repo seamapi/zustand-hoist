@@ -1,7 +1,7 @@
 import test from 'ava'
 import { createStore, type StoreApi } from 'zustand/vanilla'
 
-import { hoistState } from 'index.js'
+import { hoistState } from 'zustand-hoist'
 
 test('hoistState: moves actions to top level', (t) => {
   const store = hoistState<StoreApi<State>>(
@@ -18,8 +18,8 @@ test('hoistState: moves actions to top level', (t) => {
       boopSnoot(snout: boolean) {
         set({ snout })
         return get().snout
-      }
-    }))
+      },
+    })),
   )
 
   t.like(
@@ -27,9 +27,9 @@ test('hoistState: moves actions to top level', (t) => {
     {
       paw: true,
       snout: true,
-      fur: true
+      fur: true,
     },
-    'has initial state'
+    'has initial state',
   )
 
   store.getState().shaveDog()
@@ -51,8 +51,8 @@ test('hoistState: handles multiple state updates', (t) => {
       boopSnoot(snout: boolean) {
         set({ snout })
         return get().snout
-      }
-    }))
+      },
+    })),
   )
 
   t.true(store.fur, 'has initial state')
@@ -90,8 +90,8 @@ test('hoistState: handles action with arg', (t) => {
       boopSnoot(snout: boolean) {
         set({ snout })
         return get().snout
-      }
-    }))
+      },
+    })),
   )
 
   t.true(store.snout, 'has initial state')

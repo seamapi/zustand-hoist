@@ -8,6 +8,10 @@ on:
     branches:
       - '**'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref_name }}
+  cancel-in-progress: true
+
 jobs:
   semantic:
     name: Determine version
@@ -18,15 +22,14 @@ jobs:
       new_release_version: ${{ steps.release.outputs.new_release_version }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Semantic release
         id: release
-        uses: cycjimmy/semantic-release-action@v3
+        uses: cycjimmy/semantic-release-action@v4
         with:
           dry_run: true
-          semantic_version: '^19.0.0'
   release:
     name: Release version
     runs-on: ubuntu-latest
@@ -35,7 +38,7 @@ jobs:
     if: ${{ needs.semantic.outputs.new_release_published == 'true' }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Release version ${{ steps.release.outputs.new_release_version }} on ${{ github.ref_name }}

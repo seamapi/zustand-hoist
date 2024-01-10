@@ -29,8 +29,8 @@ const store = hoist<StoreApi<State>>(
     fur: true,
     shaveDog() {
       set({ fur: false })
-    }
-  }))
+    },
+  })),
 )
 
 store.shaveDog()
@@ -59,8 +59,8 @@ const store = hoistState<StoreApi<State>>(
     fur: true,
     shaveDog() {
       set({ fur: false })
-    }
-  }))
+    },
+  })),
 )
 
 store.getState().shaveDog()
@@ -89,8 +89,8 @@ const store = hoistActions<StoreApi<State>>(
     fur: true,
     shaveDog() {
       set({ fur: false })
-    }
-  }))
+    },
+  })),
 )
 
 store.shaveDog()
@@ -170,7 +170,7 @@ $ npm install
 
 #### Automatic
 
-New versions are released automatically with [semantic-release].
+New versions are released automatically with [semantic-release]
 as long as commits follow the [Angular Commit Message Conventions].
 
 [Angular Commit Message Conventions]: https://semantic-release.gitbook.io/semantic-release/#commit-message-format

@@ -19,7 +19,7 @@ jobs:
     needs: build
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Download artifact
@@ -49,6 +49,6 @@ jobs:
     needs: build
     with:
       artifact_name: ${{ needs.build.outputs.artifact_name }}
-      registry_host: https://registry.npmjs.org
+      registry_url: https://registry.npmjs.org
     secrets:
       registry_token: ${{ secrets.NPM_TOKEN }}

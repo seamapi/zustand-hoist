@@ -24,10 +24,10 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": "./",
     "paths": {
-      "index.js": ["./src/index.ts"],
+      "zustand-hoist": ["./src/index.ts"],
       "lib/*": ["./src/lib/*"]
     }
   },
   "files": ["src/index.ts"],
-  "include": ["src/**/*", "test/**/*", "examples/**/*"]
+  "include": ["src/**/*", "test/**/*", "examples/**/*", "tsup.config.ts"]
 }
