@@ -1,6 +1,7 @@
-import { hoistActions } from 'index.js'
 import type { Builder, Command, Describe, Handler } from 'landlubber'
 import { createStore, type StoreApi } from 'zustand/vanilla'
+
+import { hoistActions } from 'zustand-hoist'
 
 interface Options {
   name: string

@@ -1,6 +1,7 @@
 import test from 'ava'
-import { hoistState } from 'index.js'
 import { createStore, type StoreApi } from 'zustand/vanilla'
+
+import { hoistState } from 'zustand-hoist'
 
 test('hoistState: moves actions to top level', (t) => {
   const store = hoistState<StoreApi<State>>(
