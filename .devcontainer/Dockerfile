@@ -1,6 +1,6 @@
-ARG VARIANT="20"
+ARG VARIANT="22.23.4-bookworm@sha256:63538dfe497cc29dfafdda25ada09b46db68a3f4cc205abf1f5d6bf0913f3384"
 
-FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:${VARIANT}
+FROM node:${VARIANT}
 
 USER node
 WORKDIR /home/node
